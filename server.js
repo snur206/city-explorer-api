@@ -1,6 +1,6 @@
 'use strict';
 
-// this is a library that lets our node code read from a .env file.
+
 require('dotenv').config();
 const express = require ('express');
 const cors = require ('cors');
