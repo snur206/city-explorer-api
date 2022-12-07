@@ -22,7 +22,7 @@
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
-![Alt text](wrrc2.png)
+![WRRC](wrrc2.png)
 
 Name of feature: 1. Set up your server repository
 
@@ -40,6 +40,6 @@ Estimate of time needed to complete: 2 hour
 
 Start time: 2:40
 
-Finish time: 
+Finish time: 9:30
 
-Actual time needed to complete: 
+Actual time needed to complete:  6 hours 50 minutes
