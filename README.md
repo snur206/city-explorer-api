@@ -43,3 +43,27 @@ Start time: 2:40
 Finish time: 9:30
 
 Actual time needed to complete:  6 hours 50 minutes
+
+## Lab 8
+
+![Lab 8 WRRC](wrrc3.png)
+
+Name of feature: 1. Weather (live)
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 5:20
+
+Finish time: 5:55
+
+Actual time needed to complete: 35 minutes
+
+Name of feature: 2. Movies
+
+Estimate of time needed to complete: 6:00
+
+Start time: 1 hour
+
+Finish time: 
+
+Actual time needed to complete: 
