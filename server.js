@@ -1,12 +1,16 @@
 'use strict';
 
 require('dotenv').config();
-const express = require ('express');
-const cors = require ('cors');
+const express = require('express');
+const cors = require('cors');
 let app = express();
 app.use(cors());
-const weatherData = require ('./data/weather.json');
+const weatherData = require('./data/weather.json');
 const PORT = process.env.PORT;
+const movieKey = process.env.MOVIE_API_KEY;
+const Movie = require('./Movie.js');
+const axios = require('axios');
+const Forecast = require('./Forecast.js');
 
 app.get('/test', handleTest);
 function handleTest(req, res){
@@ -26,6 +30,11 @@ app.get('/weather', cityRequest);
 function cityRequest (request, response) {
   console.log('message');
   let { searchQuery } = request.query;
+  let { lat } = request.query;
+  let { lon } = request.query;
+  let url = `http://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}`;
+
+  console.log(url);
   console.log(request.query);
   console.log('search query', searchQuery);
   weatherData.forEach(data => console.log(data));
@@ -44,23 +53,34 @@ function cityRequest (request, response) {
   }
 }
 
-// syntax
-// class Weather {
-//   constructor(value) {
-//     this.value = value;
-//   }
-// }
-
-// new Weather('value');
-
-class Forecast {
-  constructor(cityWeather) {
-    console.log(cityWeather);
-    this.date = cityWeather.valid_date;
-    this.description = cityWeather.weather.description;
+app.get('/movie', async (request, response) => {
+  console.log('insted movie function');
+  let movieQuery = request.query.searchQuery;
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movieQuery}`;
+  console.log(url);
+  let cityMovie = await axios.get(url);
+  console.log('Movie', cityMovie);
+  if (cityMovie === undefined) {
+    response.status(400).send('unsupported city.');
   }
+  else {
+    let movieArray = cityMovie.data.results.map(movie => new Movie(movie.title, movie.overview, movie.average_votes, movie.total_votes, movie.popularity, movie.released_on));
+    response.send(movieArray);
+  }
+  let selectMovie = cityMovie.data.result.map(dayMovie => {
+    return new Movie(dayMovie);
+  });
+
+  response.send(selectMovie);
 }
+);
+
+
+
+
+
 app.use;
+
 
 app.use('*', (request, response) => {
   response.status(500).send('Invalid Request, page found.');
