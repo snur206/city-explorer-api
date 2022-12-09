@@ -67,3 +67,29 @@ Start time: 1 hour
 Finish time: 
 
 Actual time needed to complete: 
+
+# Lab 9 :
+
+![WRRC Lab 9](wrrc4.png)
+
+Collaborators: Adrian, Ash, Deiosha, Robert.
+
+Name of feature: 1: Performance:
+
+Estimate of time needed to complete: 1 hour
+
+Start time: Performance: 1:00
+
+Finish time: 3:30
+
+Actual time needed to complete:  2 hours 30 minutes
+
+Name of feature: 2. Refactor
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 4:00
+
+Finish time: 7:00
+
+Actual time needed to complete: 3 hours
