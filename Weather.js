@@ -9,11 +9,13 @@ async function weather (request, response) {
   try {
     let lat = request.query.lat;
     let lon = request.query.lon;
+    // call a function that returns a promise
     let cityData = await axios.get(`http://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}&days=1`);
     if(!cityData) {
       response.send('City cannot be found');
     }
-    let city =cityData.data.data.map(cityObj => new Forecast(cityObj));
+    let city = cityData.data.data.map(cityObj => new Forecast(cityObj));
+    console.log(city);
     response.send(city);
   } catch (err) {
     response.send('Invalid request');

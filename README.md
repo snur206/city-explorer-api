@@ -93,3 +93,17 @@ Start time: 4:00
 Finish time: 7:00
 
 Actual time needed to complete: 3 hours
+
+# Lab 10
+
+![WRRC Lab 10](wrrc5.png)
+
+Name of feature: 1: Performance
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 4:00
+
+Finish time: 7:00
+
+Actual time needed to complete: 3 hours
