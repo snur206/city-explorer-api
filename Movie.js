@@ -4,34 +4,17 @@ const axios = require('axios');
 
 async function movie (request, response) {
   try {
-    let name =request.query.query;
-    let movieQuery = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movieQuery}`);
-    if(!movieQuery) {
-      response.send('unsupported city.');
-    }
-    let movieArray = cityMovie.data.results.map(movie => new Movie(movie.title, movie.overview, movie.average_votes, movie.total_votes, movie.popularity, movie.released_on));
-    response.send(movieArray);
+    let name =request.query.movieQuery;
+    let movieQuery = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${name}`);
+    let movieArray = movieQuery.data.results.map(movie => new Movie(movie));
+    console.log(movieArray);
+    return(movieArray);
   } catch (err) {
-    response.send(err) {
-      response.send(err.message);
-    }
+    response.send(err);
+    // response.send(err.message);
   }
-  
-//   // let movieQuery = request.query.searchQuery;
-  
-//   // console.log(url);
-//   let cityMovie = await axios.get(url);
-//   console.log('Movie', cityMovie);
-//   if (cityMovie === undefined) {
-//     response.status(400).send('unsupported city.');
-//   }
+}
 
-//   let selectMovie = cityMovie.data.results.map(dayMovie => {
-//     return new Movie(dayMovie);
-//   });
-
-//   response.send(selectMovie);
-// }
 
 class Movie {
   constructor(data) {
@@ -41,9 +24,9 @@ class Movie {
     this.total_votes = data.total_votes;
     this.popularity = data.popularity;
     this.released_on = data.released_on;
+    this.image_url = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
     this.data = data;
   }
 }
 
 module.exports = movie;
-

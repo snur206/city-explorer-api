@@ -1,0 +1,59 @@
+'use strict';
+
+const axios = require('axios');
+let cache = require('./cache.js');
+require('dotenv').config();
+
+
+const MOVIE_API_KEY = process.env.MOVIE_API_KEY;
+
+async function getMovies(req, res) {
+  let city = req.query.movieQuery;
+  const key = 'movie city' + city;
+
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_API_KEY}&query=${city}`;
+
+
+
+  if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) { // is the timestamp on the cache data within 50 seconds from now.
+    console.log('Cache hit');
+  } else {
+    console.log('Cache miss');
+    let response = await axios.get(url);
+    // attach an empty object to the cache under the "key",
+    cache[key] = {};
+    // add timestamp and data properties to the object
+    cache[key].timestamp = Date.now();
+    cache[key].data = parseMovie(response.data);
+  }
+  console.log(cache[key].data);
+  //   return cache[key].data;
+  res.status(200).send(cache[key]);
+}
+function parseMovie(movieCity) {
+  try {
+    let movieData = movieCity.results;
+    let movieArray = movieData.map(movie => {
+      return new Movie(movie);
+    });
+    return movieArray;
+  } catch (e) {
+    console.error('Unable to parse movie data');
+  }
+
+}
+class Movie {
+
+  constructor(movie) {
+    this.title = movie.title;
+    this.overview = movie.overview;
+    this.average_votes = movie.vote_average;
+    this.total_votes = movie.vote_count;
+    this.image_url = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    this.popularity = movie.popularity;
+    this.released_on = movie.release_date;
+  }
+}
+
+
+module.exports = getMovies;
